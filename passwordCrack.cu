@@ -108,7 +108,7 @@ int *d_input;
 
 cout << "Enter a password length: ";
 cin >> length;
-float *h_gpu_result = (float*)malloc(1000*sizeof(float));
+int *h_gpu_result = (int*)malloc(1000*sizeof(int));
 
 srand(time(NULL));
 cout << "Random generated password: " << endl;
