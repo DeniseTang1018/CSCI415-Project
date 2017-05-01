@@ -104,7 +104,7 @@ int main()
 {
 int length; //length of password
 int random; //random password to be generated
-long attempts; //number of attempts to crack the password
+long attempts =0; //number of attempts to crack the password
 int *d_input;
 
 cout << "Enter a password length: ";
@@ -124,7 +124,8 @@ for (int i =0; i<length; i++){
 //declare GPU memory pointers
   int *d_output;
 //allocate GPU memory
-  cudaMalloc((void **) &d_output,1000*sizeof(int));
+cudaMalloc((void **) &d_output,1000*sizeof(int));
+cudaMalloc((void **) &d_input,1000*sizeof(int));
 //transfer the array to the GP
 cudaMemcpy(d_input, &a, 1000*sizeof(float),cudaMemcpyHostToDevice);
 //launch the kernel
