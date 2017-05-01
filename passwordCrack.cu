@@ -74,7 +74,7 @@ do{
     attempts++;
 }while(cracked==false);
 
-	d_output[idx] = (float)newB[idx];
+	d_output[idx] = newB[idx];
 	
 
 }
