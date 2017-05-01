@@ -124,7 +124,7 @@ for (int i =0; i<length; i++){
 //declare GPU memory pointers
   int *d_output;
 //allocate GPU memory
-  cudaMalloc((void **) &d_output,1000*sizeof(float));
+  cudaMalloc((void **) &d_output,1000*sizeof(int));
 //transfer the array to the GP
 cudaMemcpy(d_input, &a, 1000*sizeof(float),cudaMemcpyHostToDevice);
 //launch the kernel
