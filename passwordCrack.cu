@@ -67,7 +67,7 @@ do{
         if(newB[k]!=a[k]){
             cracked=false;
             break;
-        }else{//cracked = true;}
+        }else//{cracked = true;}
 //    if( (tries & 0x7ffffff) == 0 )
 //        cout << "\r       \r   ";
 //    else if( (tries & 0x1ffffff) == 0 )
