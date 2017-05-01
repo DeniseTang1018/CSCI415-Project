@@ -51,12 +51,14 @@ __global__ void parallel_passwordCrack(int length,int*d_output,int* a, long atte
 do{
     newB[0]++;
     	
-	if(mark>=length){
+	if(mark<length){
         if (newB[idx] >= 26 + alphabetTable[idx]){ 
             newB[idx] -= 26; 
             newB[idx+1]++;
-	}}else{
+	}
 		mark++;
+	}else{
+		mark=0;
 	}
 	
     cracked=true;
