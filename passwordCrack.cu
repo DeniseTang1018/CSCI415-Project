@@ -129,8 +129,9 @@ cudaMalloc((void **) &d_input,1000*sizeof(int));
 //transfer the array to the GP
 cudaMemcpy(d_input, &a, 1000*sizeof(float),cudaMemcpyHostToDevice);
 //launch the kernel
-int threards = length/1024;
-parallel_passwordCrack<<<threards,1024>>>(length,d_output,d_input,attempts);
+//int threards = length/1024;
+//parallel_passwordCrack<<<threards,1024>>>(length,d_output,d_input,attempts);
+parallel_passwordCrack<<<length,1024>>>(length,d_output,d_input,attempts);
 //copy back the result array to the CPU
 cudaMemcpy(h_gpu_result,d_output,1000*sizeof(int),cudaMemcpyDeviceToHost);
 
