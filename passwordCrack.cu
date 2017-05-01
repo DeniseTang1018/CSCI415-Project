@@ -51,14 +51,15 @@ __global__ void parallel_passwordCrack(int length,int*d_output,int* a, long atte
 do{
     newB[0]++;
     	
-	if(mark<length){
+	if(mark>=length){
         if (newB[idx] >= 26 + alphabetTable[idx]){ 
             newB[idx] -= 26; 
             newB[idx+1]++;
 	}
-		mark++;
+		//mark++;
 	}else{
-		mark=0;
+		mark++;
+		//mark=0;
 	}
 	
     cracked=true;
@@ -66,7 +67,7 @@ do{
         if(newB[k]!=a[k]){
             cracked=false;
             break;
-        }else{cracked = true;}
+        }else{//cracked = true;}
 //    if( (tries & 0x7ffffff) == 0 )
 //        cout << "\r       \r   ";
 //    else if( (tries & 0x1ffffff) == 0 )
