@@ -69,7 +69,7 @@ __global__ void parallel_passwordCrack(int length,int*d_output,int* a, long atte
     }
 	if(cracked){
       __syncthreads();
-      idT = idx;
+     //idT = idx;
       nIter = 1;
        __syncthreads();
       break;
