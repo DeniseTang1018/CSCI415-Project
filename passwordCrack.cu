@@ -45,10 +45,44 @@ __global__ void parallel_passwordCrack(int length,int*d_output,int* a, long atte
 {	
 	int idx = blockIdx.x*blockDim.x+threadIdx.x;
 	bool cracked = false;
-	int mark=0;
+	//int mark=0;
         char alphabetTable[] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };        
 	int newB[1000]; 
-do{
+	__shared__ int nIter;
+	do{
+	attempts++;
+	newB[0]++;
+	for(int i =0; i<length; i++){
+        if (newB[i] >= 26 + alphabetTable[i]){ 
+            newB[i] -= 26; 
+            newB[i+1]++;
+        }else break;
+    }
+    
+    cracked=true;
+    for(int k=0; k<length; k++)
+    {
+        if(newB[k]!=a[k]){
+            cracked=false;
+            break;
+        }else;
+    }
+	if(cracked){
+      __syncthreads();
+      idT = idx;
+      nIter = 1;
+       __syncthreads();
+      break;
+
+    }
+		
+	}while(!cracked);
+	
+	for(int i = 0; i< length; i++){
+  
+             d_output[i] = newB[i];
+    }
+/*do{
     newB[0]++;
     	
 	if(mark<length){
@@ -75,7 +109,7 @@ do{
     attempts++;
 }while(cracked==false);
 
-	d_output[idx] = newB[idx];
+	d_output[idx] = newB[idx];*/
 	
 
 }
@@ -127,7 +161,7 @@ for (int i =0; i<length; i++){
 cudaMalloc((void **) &d_output,1000*sizeof(int));
 cudaMalloc((void **) &d_input,1000*sizeof(int));
 //transfer the array to the GP
-cudaMemcpy(d_input, &a, 1000*sizeof(float),cudaMemcpyHostToDevice);
+cudaMemcpy(d_input, &a, 1000*sizeof(int),cudaMemcpyHostToDevice);
 //launch the kernel
 //int threards = length/1024;
 //parallel_passwordCrack<<<threards,1024>>>(length,d_output,d_input,attempts);
